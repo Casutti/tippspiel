@@ -23,29 +23,34 @@
   <div id="ausgabe"></div>
 
   <script type="module">
-        import{createClient} from "https://esm.sh/@supabase/supabase-js@2";
+        import{ createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
     //hier deine Daten von Supabase eintragen!!
     const supabaseURL ="https://gfczqsjlfrxnomjfhogd.supabase.co";
     const supabaseKey ="sb_publishable_HWhbPHna7bKpNn3ly44GTQ_QaihrStp";
 
-    const supabase = createClient(supabaseUrl,supabaseKey);
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
     //Tipp speichern
     async function speichern()
     {
 
       const name = document.getElementById("name").value;
-      const toreA = Number(document.getElementById("toreA").value;
-      const toreB = Number(document.getElementById("toreB").value;
+      const toreA = Number(document.getElementById("toreA").value);
+      const toreB = Number(document.getElementById("toreB").value);
 
-      const{error}=await supabase.from("tipps").insert([     
-        {name: name, tore_a: toreA, tore_b: toreB}
+      const{ error } = await supabase
+       .from("tipps")
+       .insert([     
+        {
+         name: name, tore_a: toreA, tore_b: toreB
+        }
         ]);
     }
   if(error)
   {
-    document.getElementById("ausgabe").innerHTML="Fehler beim Speichern: " +error.message;
+    document.getElementById("ausgabe").innerHTML=
+     "Fehler beim Speichern: " +error.message;
     return;
   }
     document.getElementById("ausgabe").innerHTML="Tipp gespeichert!";
@@ -54,11 +59,15 @@
 
   async function laden()
   {
-    const{data,error}=await supabase.from("tipps").select("*").order("id",{ascending:true});
+    const{ data,error }=await supabase
+     .from("tipps")
+     .select("*")
+     .order("id",{ascending:true});
 
     if(error)
     {
-      document.getElementById("ausgabe").innerHTML="Fehler beim Laden: "+error.message;
+      document.getElementById("ausgabe").innerHTML=
+       "Fehler beim Laden: "+error.message;
       return;
     }
 
