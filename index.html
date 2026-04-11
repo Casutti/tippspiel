@@ -1,8 +1,50 @@
+<!DOCTYPE html>
+  <head>
+      <title>Tippspiel</title>
+  </head>
+
+<body> 
 <h1> Tippspiel </h1>
-<label>Name:</label>
-<input type="text" id="name"><br><br>
-<label>Tore TeamA</label>
-<input type="number" id="toreA"><br><br>
-<label>Tore TeamB</label>
-<input type="number" id="toreB"><br><br>
-<button>Tipp speichern</button>
+  <label>Name:</label>
+   <input type="text" id="name"><br><br>
+  
+  <label>Tore TeamA</label>
+  <input type="number" id="toreA"><br><br>
+
+  <label>Tore TeamB</label>
+  <input type="number" id="toreB"><br><br>
+
+  <button onclick="speichern">Tipp speichern</button>
+
+  <h2>Alle Tipps</h2>
+  <div id="ausgabe"></div>
+
+  <script type="module">
+        import{createClient} from "https://esm.sh/@supabase/supabase-js@2";
+
+    //hier deine Daten von Supabase eintragen!!
+    const supabaseURL = "https://gfczqsjlfrxnomjfhogd.supabase.co";
+    const supabaseKey = "sb_publishable_HWhbPHna7bKpNn3ly44GTQ_QaihrStp";
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    //Tipp speichern
+    async function speichern()
+    {
+
+      const name = document.getElementById("name").value;
+      const toreA = Number(document.getElementById("toreA").value;
+      const toreB = Number(document.getElementById("toreB").value;
+
+      await supabase.from("tipps").insert([
+        {name: name, tore_a: toreA, tore_b: toreB}
+        ]);
+    }
+
+    window.speichern = speichern;
+  </script>
+
+  </body>
+
+
+
